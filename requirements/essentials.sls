@@ -23,3 +23,9 @@ essential-packages:
       - git
       - htop
       - silversearcher-ag
+
+{{pillar['requirements']['user']}}:
+  user.present:
+    - shell: /bin/bash
+    - home: /home/{{pillar['requirements']['user']}}
+    - gid_from_name: True
