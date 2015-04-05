@@ -11,7 +11,7 @@ vim:
     - source: salt://files/vimrc
     - mode: 664
 
-{{vim_path}}
+{{vim_path}}:
   file.directory:
     - user: {{user}}
     - group: {{user}}
