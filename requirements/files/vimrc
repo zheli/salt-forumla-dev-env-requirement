@@ -64,7 +64,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 "solarized
 syntax enable
-"colorscheme solarized
+colorscheme solarized
 set background=dark
 
 "coding preferences

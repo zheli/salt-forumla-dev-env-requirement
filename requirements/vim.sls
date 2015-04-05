@@ -33,9 +33,9 @@ vundle_source:
     - target: {{vim_path}}/bundle/Vundle.vim
     - force: true
 
-install-vim-plugins:
-  cmd.run:
-    - name: 'vim +PluginInstall +qall'
-    - user: {{user}}
-    - require:
-      - git: vundle_source
+#install-vim-plugins:
+#  cmd.run:
+#    - name: 'vim +PluginInstall +qall'
+#    - user: {{user}}
+#    - require:
+#      - git: vundle_source
