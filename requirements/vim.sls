@@ -10,6 +10,8 @@ vim:
     - managed
     - source: salt://requirements/files/vimrc
     - mode: 664
+    - user: {{user}}
+    - group: {{user}}
 
 {{vim_path}}:
   file.directory:
