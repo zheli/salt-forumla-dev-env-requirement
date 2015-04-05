@@ -1,0 +1,144 @@
+"set color according to terminal
+if &term =~ "xterm"
+    "256 color --
+    let &t_Co=256
+    " restore screen after quitting
+    set t_ti=ESC7ESC[rESC[?47h t_te=ESC[?47lESC8
+    if has("terminfo")
+        let &t_Sf="\ESC[3%p1%dm"
+        let &t_Sb="\ESC[4%p1%dm"
+    else
+        let &t_Sf="3%dm"
+        let &t_Sb="4%dm"
+    endif
+else
+    if &term =~ "screen-bce"
+        "256 color --
+        let &t_Co=256
+        " restore screen after quitting
+        set t_ti=ESC7ESC[rESC[?47h t_te=ESC[?47lESC8
+        if has("terminfo")
+            let &t_Sf="\ESC[3%p1%dm"
+            let &t_Sb="\ESC[4%p1%dm"
+        else
+            let &t_Sf="^[3%dm"
+            let &t_Sb="^[4%dm"
+        endif
+    endif
+endif
+
+set nocompatible   " Disable vi-compatibility
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show unicode glyphs
+
+
+filetype off
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+" call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+Plugin 'tpope/vim-fugitive'
+Plugin 'git://github.com/altercation/vim-colors-solarized.git'
+Plugin 'https://github.com/bling/vim-airline'
+Plugin 'https://github.com/tpope/vim-pathogen.git'
+Plugin 'https://github.com/chriskempson/tomorrow-theme.git'
+Plugin 'https://github.com/scrooloose/nerdtree.git'
+Plugin 'https://github.com/jiangmiao/auto-pairs.git'
+Plugin 'https://github.com/majutsushi/tagbar.git'
+Plugin 'https://github.com/kien/ctrlp.vim.git'
+Plugin 'https://github.com/t9md/vim-choosewin.git'
+Plugin 'L9'
+Plugin 'AutoComplPop'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " requirea
+
+"airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
+"solarized
+syntax enable
+colorscheme solarized
+set background=dark
+
+"coding preferences
+set t_Co=16
+set number
+set expandtab
+set tabstop=8
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set cursorline
+set ignorecase
+set smartcase
+set incsearch
+:syntax on
+filetype plugin indent on
+filetype plugin on
+filetype indent on
+
+"tab-completion
+set wildmode=longest,list,full
+set wildmenu
+
+"javascript support
+let g:tarbar_type_javascript = {
+    \ 'ctagsbin' : '/usr/local/bin/jsctags'
+\ }
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
+"save sessions
+map <F2> :mksession! ~/.vim_session <cr> " Quick write session with F2
+map <F3> :source ~/.vim_session <cr>     " And load session with F3
+map <F3> :source ~/.vim_session <cr>     " And load session with F3
+
+"different file type
+"au FileType ruby set softtabstop=2 tabstop=2 shiftwidth=2
+"ignore some files
+set wildignore=*.pyc,*cover,*/static/*,*/assets/*
+
+"always have nerdtree
+"autocmd VimEnter * NERDTree
+"autocmd BufEnter * NERDTreeMirror
+"nerdtree hotkeys
+silent! nmap <C-e> :NERDTreeToggle<CR>
+
+"tagbar hotkey
+nmap <F8> :TagbarToggle<CR>
+let g:tarbar_width=40
+
+"highlight cursorline
+:hi CursorLine   cterm=None ctermbg=2 ctermfg=white guibg=darkedred guifg=white
+:hi CursorColumn cterm=None ctermbg=2 ctermfg=white guibg=darkedred guifg=white
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+"au WinLeave * set nocursorline nocursorcolumn
+"au WinEnter * set cursorline cursorcolumn
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline cursorcolumn
+    au WinLeave * setlocal nocursorline nocursorcolumn
+augroup END
+set cursorline cursorcolumn
+
+"change background color to red for line that is longer than 120 chars
+:hi OverLength ctermbg=red ctermfg=white guibg=#592929
+call matchadd('OverLength', '\%121v.\+')
+autocmd WinEnter * call matchadd('OverLength', '\%>121v.\+')
+
+"highlight trailing whitespace
+:hi ExtraWhitespace ctermbg=red guibg=red
+call matchadd('ExtraWhitespace', '\s\+$', 11)
+autocmd WinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
+
+"choosewin
+nmap  -  <Plug>(choosewin)
+let g:choosewin_overlay_enable = 1
