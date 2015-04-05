@@ -8,7 +8,7 @@ vim:
 {{home}}/.vimrc:
   file:
     - managed
-    - source: salt://files/vimrc
+    - source: salt://requirements/files/vimrc
     - mode: 664
 
 {{vim_path}}:
