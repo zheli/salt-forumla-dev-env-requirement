@@ -34,5 +34,6 @@ vundle_source:
 install-vim-plugins:
   cmd.run:
     - name: 'vim +PluginInstall +qall'
+    - user: {{user}}
     - require:
       - git: vundle_source
