@@ -1,11 +1,6 @@
 /etc/default/locale:
-  file.touch
-
-set-system-locale:
-  locale.system:
-    - name: en_US.UTF-8
-    - require:
-      - file: /etc/default/locale
+  file.managed:
+    - source: salt://requirements/files/locale
 
 essential-packages:
   pkg.installed:
@@ -29,3 +24,6 @@ essential-packages:
     - shell: /bin/bash
     - home: /home/{{pillar['current_user']}}
     - gid_from_name: True
+
+Europe/Stockholm:
+  timezone.system
