@@ -53,6 +53,9 @@ Plugin 'https://github.com/kien/ctrlp.vim.git'
 Plugin 'https://github.com/t9md/vim-choosewin.git'
 Plugin 'L9'
 Plugin 'AutoComplPop'
+Plugin 'rking/ag.vim'
+Plugin 'https://github.com/godlygeek/tabular.git'
+Plugin 'klen/python-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -83,6 +86,12 @@ set incsearch
 filetype plugin indent on
 filetype plugin on
 filetype indent on
+"
+"wrap line that is longer than 100
+set wrap
+set textwidth=99
+set formatoptions+=t
+set wrapmargin=0
 
 "tab-completion
 set wildmode=longest,list,full
@@ -142,3 +151,10 @@ autocmd WinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
 "choosewin
 nmap  -  <Plug>(choosewin)
 let g:choosewin_overlay_enable = 1
+
+"ctrlp settings
+let g:ctrlp_follow_symlinks = 1
+
+"pymode settings
+let g:pymode_options_max_line_length = 99
+let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
