@@ -31,7 +31,6 @@ set nocompatible   " Disable vi-compatibility
 set laststatus=2   " Always show the statusline
 set encoding=utf-8 " Necessary to show unicode glyphs
 
-
 filetype off
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -51,15 +50,15 @@ Plugin 'https://github.com/jiangmiao/auto-pairs.git'
 Plugin 'https://github.com/majutsushi/tagbar.git'
 Plugin 'https://github.com/kien/ctrlp.vim.git'
 Plugin 'https://github.com/t9md/vim-choosewin.git'
-Plugin 'L9'
-Plugin 'AutoComplPop'
+"Plugin 'L9'
+"Plugin 'AutoComplPop'
 Plugin 'rking/ag.vim'
 Plugin 'https://github.com/godlygeek/tabular.git'
 Plugin 'klen/python-mode'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " requirea
+filetype plugin indent on    " required
 
 "airline
 let g:airline_powerline_fonts = 1
@@ -86,12 +85,6 @@ set incsearch
 filetype plugin indent on
 filetype plugin on
 filetype indent on
-"
-"wrap line that is longer than 100
-set wrap
-set textwidth=99
-set formatoptions+=t
-set wrapmargin=0
 
 "tab-completion
 set wildmode=longest,list,full
@@ -120,10 +113,15 @@ set wildignore=*.pyc,*cover,*/static/*,*/assets/*
 "autocmd BufEnter * NERDTreeMirror
 "nerdtree hotkeys
 silent! nmap <C-e> :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen=1 "auto close nerdtree
+
+"ignore pyc file in nerdtree
+let NERDTreeIgnore = ['\.pyc$']
 
 "tagbar hotkey
 nmap <F8> :TagbarToggle<CR>
 let g:tarbar_width=40
+let g:tagbar_autoclose=1
 
 "highlight cursorline
 :hi CursorLine   cterm=None ctermbg=2 ctermfg=white guibg=darkedred guifg=white
@@ -138,12 +136,18 @@ augroup CursorLine
 augroup END
 set cursorline cursorcolumn
 
-"change background color to red for line that is longer than 120 chars
-:hi OverLength ctermbg=red ctermfg=white guibg=#592929
-call matchadd('OverLength', '\%121v.\+')
-autocmd WinEnter * call matchadd('OverLength', '\%>121v.\+')
+"wrap line that is longer than 100
+set wrap
+set textwidth=99
+set formatoptions+=t
+set wrapmargin=0
 
-"highlight trailing whitespace
+"change background color to red for line that is longer than 100 chars
+":hi OverLength ctermbg=red ctermfg=white guibg=#592929
+"call matchadd('OverLength', '\%101v.\+')
+"autocmd WinEnter * call matchadd('OverLength', '\%>101v.\+')
+"
+""highlight trailing whitespace
 :hi ExtraWhitespace ctermbg=red guibg=red
 call matchadd('ExtraWhitespace', '\s\+$', 11)
 autocmd WinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
@@ -156,5 +160,7 @@ let g:choosewin_overlay_enable = 1
 let g:ctrlp_follow_symlinks = 1
 
 "pymode settings
-let g:pymode_options_max_line_length = 99
+let g:pymode_options_max_line_length = 100
 let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
+let g:pymode_doc = 0 "turn off pymode doc
+let g:pymode_rope_rename_bind='<C-c>rr'
