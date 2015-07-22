@@ -50,11 +50,20 @@ Plugin 'https://github.com/jiangmiao/auto-pairs.git'
 Plugin 'https://github.com/majutsushi/tagbar.git'
 Plugin 'https://github.com/kien/ctrlp.vim.git'
 Plugin 'https://github.com/t9md/vim-choosewin.git'
+Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'marijnh/tern_for_vim'
 "Plugin 'L9'
 "Plugin 'AutoComplPop'
 Plugin 'rking/ag.vim'
 Plugin 'https://github.com/godlygeek/tabular.git'
 Plugin 'klen/python-mode'
+Plugin 'SirVer/ultisnips'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+" JavaScript support
+Plugin 'pangloss/vim-javascript'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,9 +100,9 @@ set wildmode=longest,list,full
 set wildmenu
 
 "javascript support
-let g:tarbar_type_javascript = {
-    \ 'ctagsbin' : '/usr/local/bin/jsctags'
-\ }
+"let g:tagbar_type_javascript = {
+"    \ 'ctagsbin' : '/usr/local/bin/jsctags'
+"\ }
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
@@ -113,20 +122,16 @@ set wildignore=*.pyc,*cover,*/static/*,*/assets/*
 "autocmd BufEnter * NERDTreeMirror
 "nerdtree hotkeys
 silent! nmap <C-e> :NERDTreeToggle<CR>
-let NERDTreeQuitOnOpen=1 "auto close nerdtree
+"let NERDTreeQuitOnOpen=1 "auto close nerdtree
 
 "ignore pyc file in nerdtree
 let NERDTreeIgnore = ['\.pyc$']
 
 "tagbar hotkey
 nmap <F8> :TagbarToggle<CR>
-let g:tarbar_width=40
+let g:tagbar_width=40
 let g:tagbar_autoclose=1
 
-"highlight cursorline
-:hi CursorLine   cterm=None ctermbg=2 ctermfg=white guibg=darkedred guifg=white
-:hi CursorColumn cterm=None ctermbg=2 ctermfg=white guibg=darkedred guifg=white
-:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
 "au WinLeave * set nocursorline nocursorcolumn
 "au WinEnter * set cursorline cursorcolumn
 augroup CursorLine
@@ -146,11 +151,6 @@ set wrapmargin=0
 ":hi OverLength ctermbg=red ctermfg=white guibg=#592929
 "call matchadd('OverLength', '\%101v.\+')
 "autocmd WinEnter * call matchadd('OverLength', '\%>101v.\+')
-"
-""highlight trailing whitespace
-:hi ExtraWhitespace ctermbg=red guibg=red
-call matchadd('ExtraWhitespace', '\s\+$', 11)
-autocmd WinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
 
 "choosewin
 nmap  -  <Plug>(choosewin)
@@ -162,5 +162,22 @@ let g:ctrlp_follow_symlinks = 1
 "pymode settings
 let g:pymode_options_max_line_length = 100
 let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
-let g:pymode_doc = 0 "turn off pymode doc
+"turn off pymode doc
+let g:pymode_doc = 0
+set completeopt=menu
 let g:pymode_rope_rename_bind='<C-c>rr'
+
+""highlight trailing whitespace
+:hi ExtraWhitespace ctermbg=red guibg=red
+call matchadd('ExtraWhitespace', '\s\+$', 11)
+autocmd WinEnter * call matchadd('ExtraWhitespace', '\s\+$', 11)
+
+"highlight cursorline
+:hi CursorLine   cterm=None ctermbg=2 ctermfg=white guibg=ForestGreen guifg=white
+:hi CursorColumn cterm=None ctermbg=2 ctermfg=white guibg=ForestGreen guifg=white
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
