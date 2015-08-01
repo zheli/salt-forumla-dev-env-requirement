@@ -24,6 +24,8 @@ essential-packages:
     - shell: /bin/bash
     - home: /home/{{pillar['current_user']}}
     - gid_from_name: True
+    - groups:
+      - sudo
 
 Europe/Stockholm:
   timezone.system
