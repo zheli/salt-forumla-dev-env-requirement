@@ -1,9 +1,12 @@
-tmux:
-  pkg.installed: []
+{% set user=pillar['current_user'] %}
+{% set home='/home/%s'%user %}
 
-/home/vagrant/.tmux.conf:
+tmux:
+  pkg:
+  - installed
+
+{{home}}/.tmux.conf:
   file.managed:
-    - name: /home/{{pillar['current_user']}}/.tmux.conf
     - source: salt://requirements/files/tmux.conf
     - require:
       - pkg: tmux
